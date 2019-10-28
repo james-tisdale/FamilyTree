@@ -1,0 +1,33 @@
+LastName,FirstName,BirthDate,Generation,ID,Gender,MaidenName,GroupID
+Tisdale,James,09-14-89,Millennial,1,M,NULL,1
+Tisdale,Susanna,04-22-91,Millennial,2,F,NULL,1
+Tisdale,Dana,10-15-56,"Baby Boomer",3,F,Cousins,1
+Tisdale,Clark,01-17-58,"Baby Boomer",4,M,NULL,1
+Denny,Zade,NULL,Millennial,5,F,NULL,2
+Denny,Ella,NULL,Millennial,6,F,NULL,2
+Denny,Sam,NULL,,7,M,NULL,2
+Denny,Becky,NULL,"Baby Boomer",8,F,Cousins,2
+Denny,Tim,NULL,"Baby Boomer",9,M,NULL,2
+Harkness,Paige,NULL,Millennial,10,F,NULL,3
+Harkness,Julianne,NULL,NULL,11,F,NULL,3
+Harkness,Margret,NULL,NULL,12,F,NULL,3
+Hearin,Courtney,NULL,NULL,13,F,Harkness,3
+Harkness,"Katie Grant",NULL,NULL,14,F,NULL,3
+Harkness,Peggy,NULL,"Baby Boomer",15,F,Person,3
+Harkness,Grant,NULL,"Baby Boomer",16,M,NULL,3
+Jackson,Lauren,NULL,Millennial,17,F,Littleton,4
+Littleton,Michelle,NULL,Millennial,18,F,NULL,4
+Littleton,Emily,NULL,Millennial,19,F,NULL,4
+Littleton,Elaine,NULL,"Baby Boomer",20,F,Person,4
+Littleton,Rob,NULL,"Baby Boomer",21,M,NULL,4
+Elliot,Charles,NULL,Millennial,22,M,NULL,5
+Elliot,Anna,NULL,NULL,23,F,NULL,5
+Elliot,John,NULL,NULL,24,M,NULL,5
+Elliot,Sally,NULL,"Baby Boomer",25,F,Person,5
+Elliot,Dan,NULL,"Baby Boomer",26,M,NULL,5
+Stowell,Jessica,NULL,Millennial,27,F,Lee,6
+Lee,Jacob,NULL,NULL,28,M,NULL,6
+Lee,Caleb,NULL,NULL,29,M,NULL,6
+Lee,"Sarah Kate",NULL,NULL,30,F,NULL,6
+Lee,"Carol Ann",NULL,"Baby Boomer",31,F,Person,6
+Lee,Bill,NULL,"Baby Boomer",32,M,NULL,6

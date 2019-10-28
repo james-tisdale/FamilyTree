@@ -1,0 +1,24 @@
+﻿@model List<FamilyMember>
+
+<h3>My Family Members</h3>
+
+<table class="table">
+    <tr>
+        <th>Last Name</th>
+        <th>First Name</th>
+        <th>Maiden Name</th>
+        <th>Birth Date</th>
+        <th>Generation</th>
+    </tr>
+
+    @foreach(FamilyMember mem in Model)
+    {
+        <tr>
+            <td>@mem.LastName</td>
+            <td>@mem.FirstName</td>
+            <td>@mem.MaidenName</td>
+            <td>@mem.BirthDate</td>
+            <td>@mem.Generation</td>
+        </tr>
+    }
+</table>
