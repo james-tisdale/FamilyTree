@@ -16,5 +16,21 @@ namespace FamilyTree.Controllers
 
             return View(allFamilyMembers);
         }
+
+        public IActionResult ViewFamilyMember(int id)
+        {
+            FamilyMemberRepository repo = new FamilyMemberRepository();
+            FamilyMember familyMember = repo.GetFamilyMember(id);
+
+            return View(familyMember);
+        }
+
+        public IActionResult ViewFamilyGroup(int id)
+        {
+            FamilyMemberRepository repo = new FamilyMemberRepository();
+            List<FamilyMember> familyGroup = repo.GetFamilyByGroup(id);
+
+            return View(familyGroup);
+        }
     }
 }

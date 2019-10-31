@@ -1,23 +1,23 @@
 ﻿@model List<FamilyMember>
 
-<
-<h3>Family Members</h3>
+<h2>Family Group</h2>
 
 <table class="table">
+
     <tr>
-        <th>Last Name</th>
         <th>First Name</th>
-        <th>Birth Date</th>
+        <th>Birthday</th>
         <th>Generation</th>
     </tr>
 
-    @foreach(FamilyMember mem in Model)
+    @foreach (FamilyMember mem in Model)
     {
         <tr>
-            <td>@mem.LastName</td>
-            <td><a href=/FamilyMember/ViewFamilyMember/@mem.ID>@mem.FirstName</td>
+            <td>@mem.FirstName</td>
             <td>@mem.BirthDate</td>
             <td>@mem.Generation</td>
         </tr>
+
     }
+
 </table>
