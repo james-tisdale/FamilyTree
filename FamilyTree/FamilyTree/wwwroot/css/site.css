@@ -12,6 +12,20 @@ body {
     padding-right: 15px;
 }
 
+.title {
+    font-family: 'Franklin Gothic';
+    font-size: 128px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.circleButtons {
+    font-family: 'Franklin Gothic';
+    font-size: 25px;
+    border-radius: 100px;
+    color: #fa9f4d;
+}
+
 /* Carousel */
 .carousel-caption p {
     font-size: 20px;

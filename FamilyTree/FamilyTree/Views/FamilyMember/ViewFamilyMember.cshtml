@@ -1,8 +1,10 @@
 ﻿@model FamilyMember
 
-<h2>@Model.FirstName @Model.LastName</h2>
-<h3>@Model.BirthDate</h3>
-<h3>@Model.AstroSign</h3>
-<h3>@Model.Generation</h3>
+<h1>@Model.FirstName @Model.LastName</h1>
+<h4>@Model.objBirthDate.Month/@Model.objBirthDate.Day/@Model.objBirthDate.Year</h4>
+<h4>@Model.AstroSign</h4>
+<h4>@Model.Generation</h4>
 
-
+<div>
+    <a href="/FamilyMember/ViewFamilyGroup/@Model.GroupID">Back</a>
+</div>

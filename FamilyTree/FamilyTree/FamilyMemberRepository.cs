@@ -26,40 +26,37 @@ namespace FamilyTree
 
                 while (reader.Read() == true)
                 {
-                    FamilyMember currentFamilyMember = new FamilyMember();
-                    currentFamilyMember.ID = reader.GetInt32("ID");
-                    currentFamilyMember.GroupID = reader.GetInt32("GroupID");
-                    currentFamilyMember.FirstName = reader.GetString("FirstName");
-                    currentFamilyMember.LastName = reader.GetString("LastName");
-                    currentFamilyMember.GroupName = reader.GetString("GroupName");
-                    currentFamilyMember.AstroSign = reader.GetString("AstroSign");
-                    currentFamilyMember.Gender = reader.GetString("Gender");
+                    FamilyMember familyMember = new FamilyMember();
+                    familyMember.ID = reader.GetInt32("ID");
+                    familyMember.GroupID = reader.GetInt32("GroupID");
+                    familyMember.FirstName = reader.GetString("FirstName");
+                    familyMember.LastName = reader.GetString("LastName");
+                    familyMember.GroupName = reader.GetString("GroupName");
+                    familyMember.AstroSign = reader.GetString("AstroSign");
+                    familyMember.BirthDay = reader.GetInt32("BirthDay");
+                    familyMember.BirthMonth = reader.GetInt32("BirthMonth");
+                    familyMember.BirthYear = reader.GetInt32("BirthYear");
+                    DateTime currentDateTime = new DateTime(familyMember.BirthYear, familyMember.BirthMonth, familyMember.BirthDay);
+                    familyMember.objBirthDate = currentDateTime;
+                    familyMember.Gender = reader.GetString("Gender");
                     try
                     {
-                        currentFamilyMember.MaidenName = reader.GetString("MaidenName");
+                        familyMember.MaidenName = reader.GetString("MaidenName");
                     }
                     catch (System.Data.SqlTypes.SqlNullValueException)
                     {
-                        currentFamilyMember.MaidenName = null;
+                        familyMember.MaidenName = null;
                     }
                     try
                     {
-                        currentFamilyMember.BirthDate = reader.GetString("BirthDate");
+                        familyMember.Generation = reader.GetString("Generation");
                     }
                     catch (System.Data.SqlTypes.SqlNullValueException)
                     {
-                        currentFamilyMember.BirthDate = null;
-                    }
-                    try
-                    {
-                        currentFamilyMember.Generation = reader.GetString("Generation");
-                    }
-                    catch (System.Data.SqlTypes.SqlNullValueException)
-                    {
-                        currentFamilyMember.Generation = null;
+                        familyMember.Generation = null;
                     }
 
-                    allFamilyMembers.Add(currentFamilyMember);
+                    allFamilyMembers.Add(familyMember);
                 }
                 return allFamilyMembers;
             }
@@ -88,6 +85,11 @@ namespace FamilyTree
                     familyMember.LastName = reader.GetString("LastName");
                     familyMember.GroupName = reader.GetString("GroupName");
                     familyMember.AstroSign = reader.GetString("AstroSign");
+                    familyMember.BirthDay = reader.GetInt32("BirthDay");
+                    familyMember.BirthMonth = reader.GetInt32("BirthMonth");
+                    familyMember.BirthYear = reader.GetInt32("BirthYear");
+                    DateTime currentDateTime = new DateTime(familyMember.BirthYear, familyMember.BirthMonth, familyMember.BirthDay);
+                    familyMember.objBirthDate = currentDateTime;
                     familyMember.Gender = reader.GetString("Gender");
                     try
                     {
@@ -96,14 +98,6 @@ namespace FamilyTree
                     catch (System.Data.SqlTypes.SqlNullValueException)
                     {
                         familyMember.MaidenName = null;
-                    }
-                    try
-                    {
-                        familyMember.BirthDate = reader.GetString("BirthDate");
-                    }
-                    catch (System.Data.SqlTypes.SqlNullValueException)
-                    {
-                        familyMember.BirthDate = null;
                     }
                     try
                     {
@@ -141,6 +135,13 @@ namespace FamilyTree
                     familyMember.GroupID = reader.GetInt32("GroupID");
                     familyMember.FirstName = reader.GetString("FirstName");
                     familyMember.LastName = reader.GetString("LastName");
+                    familyMember.GroupName = reader.GetString("GroupName");
+                    familyMember.AstroSign = reader.GetString("AstroSign");
+                    familyMember.BirthDay = reader.GetInt32("BirthDay");
+                    familyMember.BirthMonth = reader.GetInt32("BirthMonth");
+                    familyMember.BirthYear = reader.GetInt32("BirthYear");
+                    DateTime currentDateTime = new DateTime(familyMember.BirthYear, familyMember.BirthMonth, familyMember.BirthDay);
+                    familyMember.objBirthDate = currentDateTime;
                     familyMember.Gender = reader.GetString("Gender");
                     try
                     {
@@ -149,14 +150,6 @@ namespace FamilyTree
                     catch (System.Data.SqlTypes.SqlNullValueException)
                     {
                         familyMember.MaidenName = null;
-                    }
-                    try
-                    {
-                        familyMember.BirthDate = reader.GetString("BirthDate");
-                    }
-                    catch (System.Data.SqlTypes.SqlNullValueException)
-                    {
-                        familyMember.BirthDate = null;
                     }
                     try
                     {
@@ -170,6 +163,30 @@ namespace FamilyTree
                     allFamilyMembersByGroup.Add(familyMember);
                 }
                 return allFamilyMembersByGroup;
+            }
+        }
+
+        public void InsertFamilyMember(FamilyMember familyMemberToInsert)
+        {
+            MySqlConnection conn = new MySqlConnection(connectionString);
+
+            MySqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = "INSERT INTO FamilyMembers (FirstName, LastName, BirthMonth, " +
+                "BirthDay, BirthYear, Gender, MaidenName) VALUES (@FirstName, @LastName, @BirthMonth, " +
+                "@BirthDay, @BirthYear, @Gender, @MaidenName);";
+
+            cmd.Parameters.AddWithValue("FirstName", familyMemberToInsert.FirstName);
+            cmd.Parameters.AddWithValue("LastName", familyMemberToInsert.LastName);
+            cmd.Parameters.AddWithValue("BirthMonth", familyMemberToInsert.BirthMonth);
+            cmd.Parameters.AddWithValue("BirthDay", familyMemberToInsert.BirthDay);
+            cmd.Parameters.AddWithValue("BirthYear", familyMemberToInsert.BirthYear);
+            cmd.Parameters.AddWithValue("Gender", familyMemberToInsert.Gender);
+            cmd.Parameters.AddWithValue("MaidenName", familyMemberToInsert.MaidenName);
+
+            using (conn)
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
             }
         }
     }
