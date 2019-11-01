@@ -1,20 +1,22 @@
 ﻿@model List<FamilyMember>
 
-<h2>Family Group</h2>
+<h2>The Family</h2>
 
 <table class="table">
 
     <tr>
         <th>First Name</th>
         <th>Birthday</th>
+        <th>Astro Sign</th>
         <th>Generation</th>
     </tr>
 
     @foreach (FamilyMember mem in Model)
     {
         <tr>
-            <td>@mem.FirstName</td>
+            <td><a href=/FamilyMember/ViewFamilyMember/@mem.ID>@mem.FirstName</td>
             <td>@mem.BirthDate</td>
+            <td>@mem.AstroSign</td>
             <td>@mem.Generation</td>
         </tr>
 

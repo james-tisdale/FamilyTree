@@ -19,5 +19,6 @@ namespace FamilyTree.Models
         public string Gender { get; set; }
         public string Generation { get; set; }
         public string MaidenName { get; set; }
+        public string AstroSign { get; set; }
     }
 }

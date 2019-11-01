@@ -31,6 +31,8 @@ namespace FamilyTree
                     currentFamilyMember.GroupID = reader.GetInt32("GroupID");
                     currentFamilyMember.FirstName = reader.GetString("FirstName");
                     currentFamilyMember.LastName = reader.GetString("LastName");
+                    currentFamilyMember.GroupName = reader.GetString("GroupName");
+                    currentFamilyMember.AstroSign = reader.GetString("AstroSign");
                     currentFamilyMember.Gender = reader.GetString("Gender");
                     try
                     {
@@ -84,6 +86,8 @@ namespace FamilyTree
                     familyMember.GroupID = reader.GetInt32("GroupID");
                     familyMember.FirstName = reader.GetString("FirstName");
                     familyMember.LastName = reader.GetString("LastName");
+                    familyMember.GroupName = reader.GetString("GroupName");
+                    familyMember.AstroSign = reader.GetString("AstroSign");
                     familyMember.Gender = reader.GetString("Gender");
                     try
                     {
@@ -162,6 +166,8 @@ namespace FamilyTree
                     {
                         familyMember.Generation = null;
                     }
+
+                    allFamilyMembersByGroup.Add(familyMember);
                 }
                 return allFamilyMembersByGroup;
             }
