@@ -32,5 +32,13 @@ namespace FamilyTree.Controllers
 
             return View(familyGroup);
         }
+
+        public IActionResult InsertFamilyMember()
+        {
+            FamilyMemberRepository repo = new FamilyMemberRepository();
+            FamilyMember familyMember = repo.InsertFamilyMember();
+
+            return View(familyMember);
+        }
     }
 }
