@@ -60,5 +60,28 @@ namespace FamilyTree.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public IActionResult UpdateFamilyMember(int id)
+        {
+            FamilyMemberRepository repo = new FamilyMemberRepository();
+            FamilyMember familyMember = repo.GetFamilyMember(id);
+
+            repo.UpdateFamilyMember(familyMember);
+
+            if (familyMember == null)
+            {
+                return View("ProductNotFound");
+            }
+
+            return View(familyMember);
+        }
+
+        public IActionResult UpdateFamilyMemberToDatabase(FamilyMember familyMember)
+        {
+            FamilyMemberRepository repo = new FamilyMemberRepository();
+            repo.UpdateFamilyMember(familyMember);
+
+            return RedirectToAction("ViewFamilyMember", new { id = familyMember.ID });
+        }
     }
 }

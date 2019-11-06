@@ -261,7 +261,23 @@ namespace FamilyTree
 
         public void UpdateFamilyMember(FamilyMember familyMemberToUpdate)
         {
+            MySqlConnection conn = new MySqlConnection(connectionString);
+            MySqlCommand cmd = conn.CreateCommand();
 
+            cmd.CommandText = ("UPDATE familymembers SET FirstName = @FirstName, LastName = @LastName," +
+                " BirthMonth = @BirthMonth, BirthDay = @BirthDay, BirthYear = @BirthYear WHERE ID = @id");
+            cmd.Parameters.AddWithValue("FirstName", familyMemberToUpdate.FirstName);
+            cmd.Parameters.AddWithValue("LastName", familyMemberToUpdate.LastName);
+            cmd.Parameters.AddWithValue("id", familyMemberToUpdate.ID);
+            cmd.Parameters.AddWithValue("BirthMonth", familyMemberToUpdate.BirthMonth);
+            cmd.Parameters.AddWithValue("BirthDay", familyMemberToUpdate.BirthDay);
+            cmd.Parameters.AddWithValue("BirthYear", familyMemberToUpdate.BirthYear);
+
+            using (conn)
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
         }
 
 

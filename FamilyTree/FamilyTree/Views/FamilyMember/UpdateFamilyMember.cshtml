@@ -1,0 +1,26 @@
+﻿@model FamilyMember
+
+<h2>Update @Model.FirstName @Model.LastName</h2>
+
+@using (Html.BeginForm("UpdateFamilyMemberToDatabase", "FamilyMember", "Post"))
+{
+    <input asp-for="ID" type="hidden" value="@Model.ID" />
+
+    <label asp-for="FirstName" class="control-label">First Name</label>
+    <input type="text" name="FirstName" class="form-control" value="@Model.FirstName" />
+
+    <label asp-for="LastName" class="control-label">Last Name</label>
+    <input type="text" name="LastName" class="form-control" value="@Model.LastName" />
+
+    <label asp-for="BirthMonth" class="control-label" >Birth Month</label>
+    <input type="number" name="BirthMonth" class="control-label" value="@Model.BirthMonth"/>
+
+    <label asp-for="BirthDay" class="control-label" >Birth Day</label>
+    <input type="number" name="BirthDay" class="control-label" value="@Model.BirthDay" />
+
+    <label asp-for="BirthYear" class="control-label" >Birth Year</label>
+    <input type="number" name="BirthYear" class="control-label" value="@Model.BirthYear" />
+
+    <input type="submit" value="Update" class="btn btn-primary" />
+
+}
