@@ -13,6 +13,8 @@ namespace FamilyTree.Controllers
         {
             FamilyMemberRepository repo = new FamilyMemberRepository();
             List<FamilyMember> allFamilyMembers = repo.GetAllFamilyMembers();
+            var groupRepo = new GroupNameRepository();
+            
 
             return View(allFamilyMembers);
         }
@@ -21,6 +23,7 @@ namespace FamilyTree.Controllers
         {
             FamilyMemberRepository repo = new FamilyMemberRepository();
             FamilyMember familyMember = repo.GetFamilyMember(id);
+            //familyMember = repo.AssignGroups();
 
             return View(familyMember);
         }
@@ -35,16 +38,25 @@ namespace FamilyTree.Controllers
 
         public IActionResult InsertFamilyMember()
         {
-            //FamilyMemberRepository repo = new FamilyMemberRepository();
-            //repo.InsertFamilyMember(familyMemberToInsert);
+            FamilyMemberRepository repo = new FamilyMemberRepository();
+            var prod = repo.AssignGroups();
+            
 
-            return View();
+            return View(prod);
         }
 
         public IActionResult InsertFamilyMemberToDatabase(FamilyMember familyMemberToInsert)
         {
             FamilyMemberRepository repo = new FamilyMemberRepository();
             repo.InsertFamilyMember(familyMemberToInsert);
+            repo.AssignAstroSign(familyMemberToInsert);
+            repo.AssignGeneration(familyMemberToInsert);
+
+            var groupRepo = new GroupNameRepository();
+            groupRepo.AssignGroupNameToFamilyMember(familyMemberToInsert);
+            groupRepo.AssignAstroSignToFamilyMember(familyMemberToInsert);
+
+            //var fam = repo.AssignGroups();
 
             return RedirectToAction("Index");
         }

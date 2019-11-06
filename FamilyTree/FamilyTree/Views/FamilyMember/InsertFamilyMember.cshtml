@@ -24,15 +24,16 @@
     <input type="number" name="BirthDay" class="control-label" />
     <label asp-for="BirthYear" class="control-label" value="">Birth Year</label>
     <input type="number" name="BirthYear" class="control-label" />
-    
-    <label asp-for="GroupName" class="control-label">Family Name</label>
-    <select class="form-control" name="GroupName" value="">
-        <option value="Tisdale">Tisdale</option>
-        <option value="Denny">Denny</option>
-        <option value="Harkness">Harkness</option>
-        <option value="Littleton">Littleton</option>
-        <option value="Elliot">Elliot</option>
-        <option value="Lee">Lee</option>
-    </select>
+
+    <div class="form-group">
+        <label for="">Family</label>
+        <select class="form-control" name="GroupID" value="">
+            @foreach (var fam in Model.GroupNameList)
+            {
+                <option value="@fam.GroupID">@fam.GroupName</option>
+            }
+        </select>
+    </div>
+
     <input type="submit" value="Add Family Member" class="btn btn-primary" />
 }

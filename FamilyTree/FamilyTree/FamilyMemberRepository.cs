@@ -40,8 +40,14 @@ namespace FamilyTree
 
                     familyMember.FirstName = reader.GetString("FirstName");
                     familyMember.LastName = reader.GetString("LastName");
-                    familyMember.GroupName = reader.GetString("GroupName");
-
+                    try
+                    {
+                        familyMember.GroupName = reader.GetString("GroupName");
+                    }
+                    catch (System.Data.SqlTypes.SqlNullValueException)
+                    {
+                        familyMember.GroupName = null;
+                    }
                     try
                     {
                         familyMember.AstroSign = reader.GetString("AstroSign");
@@ -101,18 +107,21 @@ namespace FamilyTree
                     {
                         familyMember.GroupID = reader.GetInt32("GroupID");
                     }
-                    catch(System.Data.SqlTypes.SqlNullValueException)
+                    catch (System.Data.SqlTypes.SqlNullValueException)
                     {
                         familyMember.GroupID = null;
                     }
                     familyMember.FirstName = reader.GetString("FirstName");
                     familyMember.LastName = reader.GetString("LastName");
-                    familyMember.GroupName = reader.GetString("GroupName");
+
+                    var groupRepo = new GroupNameRepository();
+                    groupRepo.AssignGroupNameToFamilyMember(familyMember);
+
                     try
                     {
                         familyMember.AstroSign = reader.GetString("AstroSign");
                     }
-                    catch(System.Data.SqlTypes.SqlNullValueException)
+                    catch (System.Data.SqlTypes.SqlNullValueException)
                     {
                         familyMember.AstroSign = null;
                     }
@@ -166,9 +175,28 @@ namespace FamilyTree
                     familyMember.GroupID = reader.GetInt32("GroupID");
                     familyMember.FirstName = reader.GetString("FirstName");
                     familyMember.LastName = reader.GetString("LastName");
-                    familyMember.GroupName = reader.GetString("GroupName");
-                    familyMember.AstroSign = reader.GetString("AstroSign");
+
+                    try
+                    {
+                        familyMember.GroupName = reader.GetString("GroupName");
+                    }
+                    catch (System.Data.SqlTypes.SqlNullValueException)
+                    {
+                        familyMember.GroupName = null;
+                    }
+
+                    try
+                    {
+                        familyMember.AstroSign = reader.GetString("AstroSign");
+                    }
+                    catch (System.Data.SqlTypes.SqlNullValueException)
+                    {
+                        familyMember.AstroSign = null;
+                    }
+
+
                     familyMember.BirthDay = reader.GetInt32("BirthDay");
+
                     familyMember.BirthMonth = reader.GetInt32("BirthMonth");
                     familyMember.BirthYear = reader.GetInt32("BirthYear");
                     familyMember.objBirthDate = new DateTime(familyMember.BirthYear, familyMember.BirthMonth, familyMember.BirthDay);
@@ -191,8 +219,10 @@ namespace FamilyTree
                         familyMember.Generation = null;
                     }
 
+
                     allFamilyMembersByGroup.Add(familyMember);
                 }
+
                 return allFamilyMembersByGroup;
             }
         }
@@ -204,8 +234,8 @@ namespace FamilyTree
 
             MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = "INSERT INTO FamilyMembers (FirstName, LastName, BirthMonth, " +
-                "BirthDay, BirthYear, Gender, MaidenName, GroupName) VALUES (@FirstName, @LastName, @BirthMonth, " +
-                "@BirthDay, @BirthYear, @Gender, @MaidenName, @GroupName);";
+                "BirthDay, BirthYear, Gender, MaidenName, GroupID) VALUES (@FirstName, @LastName, @BirthMonth, " +
+                "@BirthDay, @BirthYear, @Gender, @MaidenName, @GroupID);";
 
             cmd.Parameters.AddWithValue("FirstName", familyMemberToInsert.FirstName);
             cmd.Parameters.AddWithValue("LastName", familyMemberToInsert.LastName);
@@ -214,11 +244,11 @@ namespace FamilyTree
             cmd.Parameters.AddWithValue("BirthYear", familyMemberToInsert.BirthYear);
             cmd.Parameters.AddWithValue("Gender", familyMemberToInsert.Gender);
             cmd.Parameters.AddWithValue("MaidenName", familyMemberToInsert.MaidenName);
-            cmd.Parameters.AddWithValue("GroupName", familyMemberToInsert.GroupName);
+            cmd.Parameters.AddWithValue("GroupID", familyMemberToInsert.GroupID);
 
-            AssignGroupID(familyMemberToInsert);
-            AssignGeneration(familyMemberToInsert);
-            AssignAstroSign(familyMemberToInsert);
+            //AssignGroupID(familyMemberToInsert);
+            //AssignGeneration(familyMemberToInsert);
+            //AssignAstroSign(familyMemberToInsert);
 
             using (conn)
             {
@@ -229,43 +259,52 @@ namespace FamilyTree
 
         }
 
-        public void AssignGroupID(FamilyMember currentFamilyMember)
+        public void UpdateFamilyMember(FamilyMember familyMemberToUpdate)
         {
-            if(currentFamilyMember.GroupName == "Tisdale")
-            {
-                currentFamilyMember.GroupID = 1;
-            }
 
-            if(currentFamilyMember.GroupName == "Denny")
-            {
-                currentFamilyMember.GroupID = 2;
-            }
-
-            if (currentFamilyMember.GroupName == "Harkness")
-            {
-                currentFamilyMember.GroupID = 3;
-            }
-
-            if (currentFamilyMember.GroupName == "Littleton")
-            {
-                currentFamilyMember.GroupID = 4;
-            }
-
-            if (currentFamilyMember.GroupName == "Elliot")
-            {
-                currentFamilyMember.GroupID = 5;
-            }
-
-            if (currentFamilyMember.GroupName == "Lee")
-            {
-                currentFamilyMember.GroupID = 6;
-            }
         }
 
 
         public FamilyMember AssignGroups()
         {
-            
+            var groupRepo = new GroupNameRepository();
+
+            var groupNameList = groupRepo.GetGroupNames();
+
+            FamilyMember fam = new FamilyMember();
+            fam.GroupNameList = groupNameList;
+
+            if (fam.GroupID == 1)
+            {
+                fam.GroupName = "Tisdale";
+            }
+
+            if (fam.GroupID == 2)
+            {
+                fam.GroupName = "Denny";
+            }
+
+            if (fam.GroupID == 3)
+            {
+                fam.GroupName = "Harkness";
+            }
+
+            if (fam.GroupID == 4)
+            {
+                fam.GroupName = "Littleton";
+            }
+
+            if (fam.GroupID == 5)
+            {
+                fam.GroupName = "Elliot";
+            }
+
+            if (fam.GroupID == 6)
+            {
+                fam.GroupName = "Lee";
+            }
+
+            return fam;
         }
 
         public void AssignAstroSign(FamilyMember familyMember)
@@ -273,7 +312,7 @@ namespace FamilyTree
             int month = familyMember.objBirthDate.Month;
             int day = familyMember.objBirthDate.Day;
 
-            switch(month)
+            switch (month)
             {
                 case 1:
                     if (day <= 19)
@@ -418,36 +457,36 @@ namespace FamilyTree
             int month = familyMember.objBirthDate.Month;
             int day = familyMember.objBirthDate.Day;
 
-            if(familyMember.objBirthDate.Year > 2014)
+            if (familyMember.objBirthDate.Year > 2014)
             {
                 familyMember.Generation = "Generation Alpha";
             }
-            if(familyMember.objBirthDate.Year > 1994)
+            if (familyMember.objBirthDate.Year > 1994)
             {
                 familyMember.Generation = "Generation Z";
             }
 
-            if(familyMember.objBirthDate.Year > 1980)
+            if (familyMember.objBirthDate.Year > 1980)
             {
                 familyMember.Generation = "Millennial";
             }
 
-            if(familyMember.objBirthDate.Year > 1964)
+            if (familyMember.objBirthDate.Year > 1964)
             {
                 familyMember.Generation = "Generation X";
             }
 
-            if(familyMember.objBirthDate.Year > 1945)
+            if (familyMember.objBirthDate.Year > 1945)
             {
                 familyMember.Generation = "Baby Boomer";
             }
 
-            if(familyMember.objBirthDate.Year > 1924)
+            if (familyMember.objBirthDate.Year > 1924)
             {
                 familyMember.Generation = "The Silent Generation";
             }
         }
 
-        
+
     }
 }
