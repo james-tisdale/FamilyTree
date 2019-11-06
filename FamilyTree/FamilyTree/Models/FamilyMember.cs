@@ -11,7 +11,7 @@ namespace FamilyTree.Models
         {
         }
         public int ID{ get; set; }
-        public int GroupID { get; set; }
+        public int? GroupID { get; set; }
         public string GroupName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -23,5 +23,7 @@ namespace FamilyTree.Models
         public int BirthYear { get; set; }
         public int BirthDay { get; set; }
         public DateTime objBirthDate { get; set; }
+        
+        List<string> GroupNameList { get; set; }
     }
 }

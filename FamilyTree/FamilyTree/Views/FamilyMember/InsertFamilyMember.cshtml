@@ -6,21 +6,33 @@
     <a href="/Home/Index">Back to Families</a>
 </div>
 
-@using (Html.BeginForm("InsertProductToDatabase", "Product", "Post"))
+@using (Html.BeginForm("InsertFamilyMemberToDatabase", "FamilyMember", "Post"))
 {
     <input asp-for="ID" type="hidden" value="" />
-    <label asp-for="Name" class="control-label">Name</label>
-    <input type="text" name="Name" class="form-control" value="" />
-    <label asp-for="Price" class="control-label">Price</label>
-    <input type="number" step="0.01" name="Price" class="form-control" />
-    <div class="form-group">
-        <label for="">Select a Category</label>
-        <select class="form-control" name="CategoryID" value="">
-            @foreach (var cat in Model.Categories)
-            {
-                <option value="@cat.CategoryID">@cat.Name</option>
-            }
-        </select>
-    </div>
-    <input type="submit" value="Create Product" class="btn btn-primary" />
+    <label asp-for="FirstName" class="control-label">First Name</label>
+    <input type="text" name="FirstName" class="form-control" value="" />
+    <label asp-for="LastName" class="control-label">Last Name</label>
+    <input type="text" name="LastName" class="form-control" />
+    <label asp-for="Gender" class="form-control">Gender</label>
+    <select class="form-control" name="Gender" value="">
+        <option value="M">M</option>
+        <option value="F">F</option>
+    </select>
+    <label asp-for="BirthMonth" class="control-label">Birth Month</label>
+    <input type="number" name="BirthMonth" class="control-label" />
+    <label asp-for="BirthDay" class="control-label">Birth Day</label>
+    <input type="number" name="BirthDay" class="control-label" />
+    <label asp-for="BirthYear" class="control-label" value="">Birth Year</label>
+    <input type="number" name="BirthYear" class="control-label" />
+    
+    <label asp-for="GroupName" class="control-label">Family Name</label>
+    <select class="form-control" name="GroupName" value="">
+        <option value="Tisdale">Tisdale</option>
+        <option value="Denny">Denny</option>
+        <option value="Harkness">Harkness</option>
+        <option value="Littleton">Littleton</option>
+        <option value="Elliot">Elliot</option>
+        <option value="Lee">Lee</option>
+    </select>
+    <input type="submit" value="Add Family Member" class="btn btn-primary" />
 }

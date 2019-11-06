@@ -35,10 +35,18 @@ namespace FamilyTree.Controllers
 
         public IActionResult InsertFamilyMember()
         {
-            FamilyMemberRepository repo = new FamilyMemberRepository();
-            FamilyMember familyMember = repo.InsertFamilyMember();
+            //FamilyMemberRepository repo = new FamilyMemberRepository();
+            //repo.InsertFamilyMember(familyMemberToInsert);
 
-            return View(familyMember);
+            return View();
+        }
+
+        public IActionResult InsertFamilyMemberToDatabase(FamilyMember familyMemberToInsert)
+        {
+            FamilyMemberRepository repo = new FamilyMemberRepository();
+            repo.InsertFamilyMember(familyMemberToInsert);
+
+            return RedirectToAction("Index");
         }
     }
 }

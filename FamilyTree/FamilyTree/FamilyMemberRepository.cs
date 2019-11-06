@@ -28,11 +28,28 @@ namespace FamilyTree
                 {
                     FamilyMember familyMember = new FamilyMember();
                     familyMember.ID = reader.GetInt32("ID");
-                    familyMember.GroupID = reader.GetInt32("GroupID");
+
+                    try
+                    {
+                        familyMember.GroupID = reader.GetInt32("GroupID");
+                    }
+                    catch (System.Data.SqlTypes.SqlNullValueException)
+                    {
+                        familyMember.GroupID = null;
+                    }
+
                     familyMember.FirstName = reader.GetString("FirstName");
                     familyMember.LastName = reader.GetString("LastName");
                     familyMember.GroupName = reader.GetString("GroupName");
-                    familyMember.AstroSign = reader.GetString("AstroSign");
+
+                    try
+                    {
+                        familyMember.AstroSign = reader.GetString("AstroSign");
+                    }
+                    catch (System.Data.SqlTypes.SqlNullValueException)
+                    {
+                        familyMember.AstroSign = null;
+                    }
                     familyMember.BirthDay = reader.GetInt32("BirthDay");
                     familyMember.BirthMonth = reader.GetInt32("BirthMonth");
                     familyMember.BirthYear = reader.GetInt32("BirthYear");
@@ -80,11 +97,25 @@ namespace FamilyTree
                 {
                     FamilyMember currentFamilyMember = new FamilyMember();
                     familyMember.ID = reader.GetInt32("ID");
-                    familyMember.GroupID = reader.GetInt32("GroupID");
+                    try
+                    {
+                        familyMember.GroupID = reader.GetInt32("GroupID");
+                    }
+                    catch(System.Data.SqlTypes.SqlNullValueException)
+                    {
+                        familyMember.GroupID = null;
+                    }
                     familyMember.FirstName = reader.GetString("FirstName");
                     familyMember.LastName = reader.GetString("LastName");
                     familyMember.GroupName = reader.GetString("GroupName");
-                    familyMember.AstroSign = reader.GetString("AstroSign");
+                    try
+                    {
+                        familyMember.AstroSign = reader.GetString("AstroSign");
+                    }
+                    catch(System.Data.SqlTypes.SqlNullValueException)
+                    {
+                        familyMember.AstroSign = null;
+                    }
                     familyMember.BirthDay = reader.GetInt32("BirthDay");
                     familyMember.BirthMonth = reader.GetInt32("BirthMonth");
                     familyMember.BirthYear = reader.GetInt32("BirthYear");
@@ -140,8 +171,8 @@ namespace FamilyTree
                     familyMember.BirthDay = reader.GetInt32("BirthDay");
                     familyMember.BirthMonth = reader.GetInt32("BirthMonth");
                     familyMember.BirthYear = reader.GetInt32("BirthYear");
-                    DateTime currentDateTime = new DateTime(familyMember.BirthYear, familyMember.BirthMonth, familyMember.BirthDay);
-                    familyMember.objBirthDate = currentDateTime;
+                    familyMember.objBirthDate = new DateTime(familyMember.BirthYear, familyMember.BirthMonth, familyMember.BirthDay);
+                    //familyMember.objBirthDate = currentDateTime;
                     familyMember.Gender = reader.GetString("Gender");
                     try
                     {
@@ -168,6 +199,7 @@ namespace FamilyTree
 
         public void InsertFamilyMember(FamilyMember familyMemberToInsert)
         {
+
             MySqlConnection conn = new MySqlConnection(connectionString);
 
             MySqlCommand cmd = conn.CreateCommand();
@@ -184,44 +216,56 @@ namespace FamilyTree
             cmd.Parameters.AddWithValue("MaidenName", familyMemberToInsert.MaidenName);
             cmd.Parameters.AddWithValue("GroupName", familyMemberToInsert.GroupName);
 
+            AssignGroupID(familyMemberToInsert);
+            AssignGeneration(familyMemberToInsert);
+            AssignAstroSign(familyMemberToInsert);
+
             using (conn)
             {
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }
+
+
         }
 
         public void AssignGroupID(FamilyMember currentFamilyMember)
         {
-            if(currentFamilyMember.GroupID == 1)
+            if(currentFamilyMember.GroupName == "Tisdale")
             {
-                currentFamilyMember.GroupName = "Tisdale";
+                currentFamilyMember.GroupID = 1;
             }
 
-            if(currentFamilyMember.GroupID == 2)
+            if(currentFamilyMember.GroupName == "Denny")
             {
-                currentFamilyMember.GroupName = "Denny";
+                currentFamilyMember.GroupID = 2;
             }
 
-            if (currentFamilyMember.GroupID == 3)
+            if (currentFamilyMember.GroupName == "Harkness")
             {
-                currentFamilyMember.GroupName = "Harkness";
+                currentFamilyMember.GroupID = 3;
             }
 
-            if (currentFamilyMember.GroupID == 4)
+            if (currentFamilyMember.GroupName == "Littleton")
             {
-                currentFamilyMember.GroupName = "Littleton";
+                currentFamilyMember.GroupID = 4;
             }
 
-            if (currentFamilyMember.GroupID == 5)
+            if (currentFamilyMember.GroupName == "Elliot")
             {
-                currentFamilyMember.GroupName = "Elliot";
+                currentFamilyMember.GroupID = 5;
             }
 
-            if (currentFamilyMember.GroupID == 6)
+            if (currentFamilyMember.GroupName == "Lee")
             {
-                currentFamilyMember.GroupName = "Lee";
+                currentFamilyMember.GroupID = 6;
             }
+        }
+
+
+        public FamilyMember AssignGroups()
+        {
+            
         }
 
         public void AssignAstroSign(FamilyMember familyMember)
@@ -403,5 +447,7 @@ namespace FamilyTree
                 familyMember.Generation = "The Silent Generation";
             }
         }
+
+        
     }
 }
