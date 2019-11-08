@@ -1,26 +1,53 @@
 ﻿@model FamilyMember
 
-<h2>Update @Model.FirstName @Model.LastName</h2>
+<style>
+    body {
+        background-color: #e0f4ff;
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+
+    .circle-button {
+        color: #a7cdbd;
+        font-family: 'Franklin Gothic';
+        font-size: 25px;
+        border-radius: 100px;
+    }
+
+    .update-title {
+        color: #175873;
+        font-family: 'Franklin Gothic';
+        font-size: 25px;
+        border-radius: 100px;
+    }
+
+    .form-title {
+        color: #175873;
+        font-family: 'Franklin Gothic';
+    }
+</style>
+<h2 class="update-title">Update @Model.FirstName @Model.LastName's Info</h2>
 
 @using (Html.BeginForm("UpdateFamilyMemberToDatabase", "FamilyMember", "Post"))
 {
     <input asp-for="ID" type="hidden" value="@Model.ID" />
 
-    <label asp-for="FirstName" class="control-label">First Name</label>
+    <label asp-for="FirstName" class="form-title">First Name</label>
     <input type="text" name="FirstName" class="form-control" value="@Model.FirstName" />
 
-    <label asp-for="LastName" class="control-label">Last Name</label>
+    <label asp-for="LastName" class="form-title">Last Name</label>
     <input type="text" name="LastName" class="form-control" value="@Model.LastName" />
 
-    <label asp-for="BirthMonth" class="control-label" >Birth Month</label>
-    <input type="number" name="BirthMonth" class="control-label" value="@Model.BirthMonth"/>
+    <label asp-for="BirthMonth" class="form-title">Birth Month</label>
+    <input type="number" name="BirthMonth" class="control-label" value="@Model.BirthMonth" />
 
-    <label asp-for="BirthDay" class="control-label" >Birth Day</label>
+    <label asp-for="BirthDay" class="form-title">Birth Day</label>
     <input type="number" name="BirthDay" class="control-label" value="@Model.BirthDay" />
 
-    <label asp-for="BirthYear" class="control-label" >Birth Year</label>
+    <label asp-for="BirthYear" class="form-title">Birth Year</label>
     <input type="number" name="BirthYear" class="control-label" value="@Model.BirthYear" />
 
     <input type="submit" value="Update" class="btn btn-primary" />
+
 
 }

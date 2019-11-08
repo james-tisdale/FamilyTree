@@ -1,34 +1,45 @@
 ﻿@model List<FamilyMember>
 <style>
    
-
- 
-    a:link {
-        color: #a7cdbd;
+    body {
+        background-color: #e0f4ff;
+        padding-top: 50px;
+        padding-bottom: 50px;
     }
 
-    a:hover {
-        color: #ffffff;
+    .title {
+        color: #fa9f4d;
+        font-family: 'Franklin Gothic';
+        font-size: 128px;
+        background-color: #e0f4ff;
     }
 
     .circle-button {
+        color: #a7cdbd;
         font-family: 'Franklin Gothic';
         font-size: 25px;
         border-radius: 100px;
-        color: #a7cdbd;
     }
 
+
     .table-head {
+        color: #a7cdbd;
         font-family: 'Franklin Gothic Medium';
         font-size: 17px;
-        color: #a7cdbd;
     }
 
     .table-data {
+        color: #a7cdbd;
         font-family: 'Franklin Gothic';
         font-size: 17px;
-        color: #a7cdbd;
-        
+    }
+
+    a:link {
+    color: #a7cdbd;
+    }
+
+    a:hover {
+        color: #f3f9d2;
     }
 </style>
 
@@ -46,18 +57,20 @@
 
     @foreach (FamilyMember mem in Model)
     {
-    <tr>
-        <td class="table-data"><a href=/FamilyMember/ViewFamilyMember/@mem.ID>@mem.FirstName</td>
-        <td class="table-data">@mem.BirthMonth/@mem.BirthDay/@mem.BirthYear</td>
-        <td class="table-data">@mem.AstroSign</td>
-        <td class="table-data">@mem.Generation</td>
-    </tr>
+<tr>
+    <td class="table-data"><a class="table-data" href="/FamilyMember/ViewFamilyMember/@mem.ID/">@mem.FirstName</td>
+    <td class="table-data">@mem.BirthMonth/@mem.BirthDay/@mem.BirthYear</td>
+    <td class="table-data">@mem.AstroSign</td>
+    <td class="table-data">@mem.Generation</td>
+</tr>
 
     }
 
 </table>
 
-<a href=/FamilyMember/InsertFamilyMember/>Add a new Family Member</a>
 <div>
-    <a href="/Home/Index">Back</a>
+    <a class="circle-button" href="/FamilyMember/InsertFamilyMember/">Add a new Family Member</a>
+</div>
+<div>
+    <a class="circle-button" href="/Home/Index/" >Back</a>
 </div>

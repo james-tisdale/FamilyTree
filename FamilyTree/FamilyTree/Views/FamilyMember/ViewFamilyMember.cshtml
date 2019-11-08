@@ -1,20 +1,41 @@
 ﻿@model FamilyMember
+<style>
+body {
+ background-color: #e0f4ff;
+ padding-top: 50px;
+ padding-bottom: 50px;
+ }
 
-<h1>@Model.FirstName @Model.LastName</h1>
-<h4>@Model.BirthMonth/@Model.BirthDay/@Model.BirthYear</h4>
-<h4>@Model.AstroSign</h4>
-<h4>@Model.Generation</h4>
+.title {
+ color: #fa9f4d;
+ font-family: 'Franklin Gothic';
+ font-size: 128px;
+ background-color: #e0f4ff;
+}
+
+.circle-button {
+ color: #a7cdbd;
+ font-family: 'Franklin Gothic';
+ font-size: 25px;
+ border-radius: 100px;
+}
+</style>
+
+<h1 class="title">@Model.FirstName @Model.LastName</h1>
+<h4 class="circle-button">@Model.BirthMonth/@Model.BirthDay/@Model.BirthYear</h4>
+<h4 class="circle-button">@Model.AstroSign</h4>
+<h4 class="circle-button">@Model.Generation</h4>
 
 <div>
-    <a href="/FamilyMember/UpdateFamilyMember/@Model.ID">Update Info</a>
+    <a href="/FamilyMember/UpdateFamilyMember/@Model.ID/">Update Info</a>
 </div>
 <div style="display: block">
     @using (Html.BeginForm("DeleteFamilyMember", "FamilyMember", "Post"))
     {
         <input type="hidden" asp-for="ID" value="@Model.ID" />
-        <input type="submit" onclick="return confirm('Are you sure?')" value="Delete" />
+        <input type="submit" class="btn btn-primary" onclick="return confirm('Are you sure?')" value="Delete" />
     }
 </div>
 <div>
-    <a href="/FamilyMember/ViewFamilyGroup/@Model.GroupID">Back</a>
+    <a href="/FamilyMember/ViewFamilyGroup/@Model.GroupID/">Back</a>
 </div>

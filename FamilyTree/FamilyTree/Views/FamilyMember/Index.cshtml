@@ -1,14 +1,50 @@
 ﻿@model List<FamilyMember>
 
-<h3>Family Members</h3>
+<style>
+ body {
+    background-color: #e0f4ff;
+    padding-top: 50px;
+    padding-bottom: 50px;
+ }
+
+
+ .title {
+     color: #fa9f4d;
+     font-family: 'Franklin Gothic';
+     font-size: 128px;
+     background-color: #e0f4ff;
+ }
+
+ .table-head {
+        color: #a7cdbd;
+        font-family: 'Franklin Gothic Medium';
+        font-size: 17px;
+}
+
+.table-data {
+    color: #a7cdbd;
+    font-family: 'Franklin Gothic';
+    font-size: 17px;
+}
+
+a:link {
+color: #a7cdbd;
+}
+
+a:hover {
+    color: #f3f9d2;
+}
+</style>
+
+<h3 class="title">Family Members</h3>
 
 <table class="table">
     <tr>
-        <th>Last Name</th>
-        <th>First Name</th>
-        <th>Birth Date</th>
-        <th>Generation</th>  
-        <th>Astro Sign</th> 
+        <th class="table-head">Last Name</th>
+        <th class="table-head">First Name</th>
+        <th class="table-head">Birth Date</th>
+        <th class="table-head">Generation</th>  
+        <th class="table-head">Astro Sign</th> 
     </tr>
 
     @foreach(FamilyMember mem in Model)

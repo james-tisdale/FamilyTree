@@ -2,38 +2,48 @@
     ViewData["Title"] = "My Family Tree";
 }
 <style>
-body {
-    padding-top: 50px;
-    padding-bottom: 50px;
+ body {
+     background-color: #e0f4ff;
+     padding-top: 50px;
+     padding-bottom: 50px;
+ }
+
+
+ .title {
+     color: #fa9f4d;
+     font-family: 'Franklin Gothic';
+     font-size: 128px;
+     background-color: #e0f4ff;
+ }
+
+ .circle-button {
+     color: #a7cdbd;
+     font-family: 'Franklin Gothic';
+     font-size: 25px;
+     border-radius: 100px;
+ }
+
+ a:link {
+ color: #a7cdbd;
 }
 
-.title {
-    font-family: 'Franklin Gothic';
-    font-size: 128px;
-    color: #fa9f4d;
-}
-
-.circle-button {
-    font-family: 'Franklin Gothic';
-    font-size: 25px;
-    border-radius: 100px;
-    color: #a7cdbd;
-}
-
+ a:hover {
+ color: #f3f9d2;
+ }
 </style>
 
-<head>
+<!--<head>
     <link href="https://fonts.googleapis.com/css?family=Cairo|Maven+Pro|Righteous|Ubuntu+Condensed&display=swap" rel="stylesheet">
     <link href="/css/site.css" rel="stylesheet" />
 </head>
-
+-->
 
 <div class="title">FamilyDataBase</div>
 
 
 
 <div class="btn-group-vertical">
-    <a class="circle-button"  href=/FamilyMember/ViewFamilyGroup/1>Tisdale</a>
+    <a class="circle-button" href=/FamilyMember/ViewFamilyGroup/1>Tisdale</a>
     <a class="circle-button" href=/FamilyMember/ViewFamilyGroup/2>Denny</a>
     <a class="circle-button" href=/FamilyMember/ViewFamilyGroup/4>Littleton</a>
 </div>
