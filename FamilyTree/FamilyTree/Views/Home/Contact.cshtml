@@ -1,15 +1,44 @@
 ﻿@{
     ViewData["Title"] = "Contact";
 }
-<h2>@ViewData["Title"]</h2>
-<h3>James Tisdale</h3>
 
-<address>
-    911 Vanderbilt St<br/>
-    Birmingham, AL 35206<br/>
+<style>
+    body {
+        background-color: #e0f4ff;
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+
+
+    .title {
+        color: #fa9f4d;
+        font-family: 'Franklin Gothic';
+        font-size: 128px;
+        background-color: #e0f4ff;
+    }
+
+    .circle-button {
+        color: #a7cdbd;
+        font-family: 'Franklin Gothic';
+        font-size: 25px;
+        border-radius: 100px;
+    }
+
+    .form-title {
+        color: #175873;
+        font-family: 'Franklin Gothic';
+}
+</style>
+<!--
+<h2 class="circle-button">@ViewData["Title"]</h2> -->
+<h3 class="title">James Tisdale</h3>
+
+<address class="circle-button">
+    911 Vanderbilt St<br />
+    Birmingham, AL 35206<br />
     P: 205.616.4053
 </address>
 
 <address>
-    <strong>email:</strong> <a href="mailto:james.tisdale89@gmail.com">james.tisdale89@gmail.com</a><br />
+    <strong class="circle-button">email:</strong> <a href="mailto:james.tisdale89@gmail.com">james.tisdale89@gmail.com</a><br />
 </address>

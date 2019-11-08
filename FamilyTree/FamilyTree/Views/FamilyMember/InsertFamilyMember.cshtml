@@ -1,33 +1,50 @@
 ﻿@model FamilyMember
 
-<h2>Add a Family Member</h2>
+<style>
+body {
+    background-color: #e0f4ff;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
 
-<div style="display: block">
-    <a href="/Home/Index">Back to Families</a>
-</div>
+
+ .title {
+     color: #fa9f4d;
+     font-family: 'Franklin Gothic';
+     font-size: 128px;
+     background-color: #e0f4ff;
+ }
+
+ .form-title {
+        color: #175873;
+        font-family: 'Franklin Gothic';
+}
+</style>
+<h2 class="title">Add a Family Member</h2>
+
 
 @using (Html.BeginForm("InsertFamilyMemberToDatabase", "FamilyMember", "Post"))
 {
     <input asp-for="ID" type="hidden" value="" />
-    <label asp-for="FirstName" class="control-label">First Name</label>
+    <label asp-for="FirstName" class="form-title">First Name</label>
     <input type="text" name="FirstName" class="form-control" value="" />
-    <label asp-for="LastName" class="control-label">Last Name</label>
+    <label asp-for="LastName" class="form-title">Last Name</label>
     <input type="text" name="LastName" class="form-control" />
-    <label asp-for="Gender" class="form-control">Gender</label>
+    <label asp-for="Gender" class="form-title">Gender</label>
     <select class="form-control" name="Gender" value="">
         <option value="M">M</option>
         <option value="F">F</option>
     </select>
-    <label asp-for="BirthMonth" class="control-label">Birth Month</label>
+    <label asp-for="BirthMonth" class="form-title">Birth Month</label>
     <input type="number" name="BirthMonth" class="control-label" />
-    <label asp-for="BirthDay" class="control-label">Birth Day</label>
+    <label asp-for="BirthDay" class="form-title">Birth Day</label>
     <input type="number" name="BirthDay" class="control-label" />
-    <label asp-for="BirthYear" class="control-label" value="">Birth Year</label>
+    <label asp-for="BirthYear" class="form-title" value="">Birth Year</label>
     <input type="number" name="BirthYear" class="control-label" />
 
     <div class="form-group">
         <label for="">Family</label>
-        <select class="form-control" name="GroupID" value="">
+        <select class="form-title" name="GroupID" value="">
             @foreach (var fam in Model.GroupNameList)
             {
                 <option value="@fam.GroupID">@fam.GroupName</option>
@@ -37,3 +54,7 @@
 
     <input type="submit" value="Add Family Member" class="btn btn-primary" />
 }
+
+<div style="display: block">
+    <a href="/Home/Index/">Back to Families</a>
+</div>

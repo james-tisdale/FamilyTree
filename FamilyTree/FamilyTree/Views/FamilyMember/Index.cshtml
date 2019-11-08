@@ -27,9 +27,9 @@
     font-size: 17px;
 }
 
-a:link {
+/*a:link {
 color: #a7cdbd;
-}
+}*/
 
 a:hover {
     color: #f3f9d2;
@@ -50,11 +50,11 @@ a:hover {
     @foreach(FamilyMember mem in Model)
     {
         <tr>
-            <td>@mem.LastName</td>
-            <td><a href=/FamilyMember/ViewFamilyMember/@mem.ID>@mem.FirstName</td>
-            <td>@mem.BirthMonth/@mem.BirthDay/@mem.BirthYear</td>
-            <td>@mem.Generation</td>  
-            <td>@mem.AstroSign</td>  
+            <td class="table-data">@mem.LastName</td>
+            <td class="table-data"><a href="/FamilyMember/ViewFamilyMember/@mem.ID/" >@mem.FirstName</td>
+            <td class="table-data">@mem.BirthMonth/@mem.BirthDay/@mem.BirthYear</td>
+            <td class="table-data">@mem.Generation</td>  
+            <td class="table-data">@mem.AstroSign</td>  
         </tr>
     }
 </table>

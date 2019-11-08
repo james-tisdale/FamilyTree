@@ -7,6 +7,13 @@
         padding-bottom: 50px;
     }
 
+    .title {
+        color: #fa9f4d;
+        font-family: 'Franklin Gothic';
+        font-size: 128px;
+        background-color: #e0f4ff;
+    }
+
     .circle-button {
         color: #a7cdbd;
         font-family: 'Franklin Gothic';
@@ -26,7 +33,7 @@
         font-family: 'Franklin Gothic';
     }
 </style>
-<h2 class="update-title">Update @Model.FirstName @Model.LastName's Info</h2>
+<h2 class="title">Update @Model.FirstName @Model.LastName's Info</h2>
 
 @using (Html.BeginForm("UpdateFamilyMemberToDatabase", "FamilyMember", "Post"))
 {
@@ -48,6 +55,10 @@
     <input type="number" name="BirthYear" class="control-label" value="@Model.BirthYear" />
 
     <input type="submit" value="Update" class="btn btn-primary" />
+
+    <div>
+        <a class="circle-button" href="/FamilyMember/ViewFamilyGroup/@Model.ID/">Back</a>
+    </div>
 
 
 }
