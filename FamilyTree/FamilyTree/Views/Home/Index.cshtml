@@ -1,22 +1,45 @@
 ﻿@{
     ViewData["Title"] = "My Family Tree";
 }
+<style>
+body {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.title {
+    font-family: 'Franklin Gothic';
+    font-size: 128px;
+    color: #fa9f4d;
+}
+
+.circle-button {
+    font-family: 'Franklin Gothic';
+    font-size: 25px;
+    border-radius: 100px;
+    color: #a7cdbd;
+}
+
+</style>
 
 <head>
     <link href="https://fonts.googleapis.com/css?family=Cairo|Maven+Pro|Righteous|Ubuntu+Condensed&display=swap" rel="stylesheet">
     <link href="/css/site.css" rel="stylesheet" />
 </head>
 
-<div>
-    <h1 class="title">FamilyDataBase</h1>
+
+<div class="title">FamilyDataBase</div>
+
+
+
+<div class="btn-group-vertical">
+    <a class="circle-button"  href=/FamilyMember/ViewFamilyGroup/1>Tisdale</a>
+    <a class="circle-button" href=/FamilyMember/ViewFamilyGroup/2>Denny</a>
+    <a class="circle-button" href=/FamilyMember/ViewFamilyGroup/4>Littleton</a>
 </div>
 
-
-<div class="list-group-item">
-    <h4 class="circleButtons"><a href=/FamilyMember/ViewFamilyGroup/1>Tisdale</a></h4>
-    <h4 class="circleButtons"><a href=/FamilyMember/ViewFamilyGroup/2>Denny</a></h4>
-    <h4 class="circleButtons"><a href=/FamilyMember/ViewFamilyGroup/4>Littleton</a></h4>
-    <h4 class="circleButtons"><a href=/FamilyMember/ViewFamilyGroup/3>Harkness</a></h4>
-    <h4 class="circleButtons"><a href=/FamilyMember/ViewFamilyGroup/5>Elliot</a></h4>
-    <h4 class="circleButtons"><a href=/FamilyMember/ViewFamilyGroup/6>Lee</a></h4>
+<div class="btn-group-vertical">
+    <a class="circle-button" href=/FamilyMember/ViewFamilyGroup/3>Harkness</a>
+    <a class="circle-button" href=/FamilyMember/ViewFamilyGroup/5>Elliot</a>
+    <a class="circle-button" href=/FamilyMember/ViewFamilyGroup/6>Lee</a>
 </div>

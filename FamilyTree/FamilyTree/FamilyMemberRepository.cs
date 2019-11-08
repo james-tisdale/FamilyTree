@@ -59,8 +59,6 @@ namespace FamilyTree
                     familyMember.BirthDay = reader.GetInt32("BirthDay");
                     familyMember.BirthMonth = reader.GetInt32("BirthMonth");
                     familyMember.BirthYear = reader.GetInt32("BirthYear");
-                    DateTime currentDateTime = new DateTime(familyMember.BirthYear, familyMember.BirthMonth, familyMember.BirthDay);
-                    familyMember.objBirthDate = currentDateTime;
                     familyMember.Gender = reader.GetString("Gender");
                     try
                     {
@@ -123,13 +121,11 @@ namespace FamilyTree
                     }
                     catch (System.Data.SqlTypes.SqlNullValueException)
                     {
-                        familyMember.AstroSign = null;
+                        AssignAstroSign(familyMember);
                     }
                     familyMember.BirthDay = reader.GetInt32("BirthDay");
                     familyMember.BirthMonth = reader.GetInt32("BirthMonth");
                     familyMember.BirthYear = reader.GetInt32("BirthYear");
-                    DateTime currentDateTime = new DateTime(familyMember.BirthYear, familyMember.BirthMonth, familyMember.BirthDay);
-                    familyMember.objBirthDate = currentDateTime;
                     familyMember.Gender = reader.GetString("Gender");
                     try
                     {
@@ -145,7 +141,7 @@ namespace FamilyTree
                     }
                     catch (System.Data.SqlTypes.SqlNullValueException)
                     {
-                        familyMember.Generation = null;
+                        AssignGeneration(familyMember);
                     }
 
                 }
@@ -194,13 +190,9 @@ namespace FamilyTree
                         familyMember.AstroSign = null;
                     }
 
-
                     familyMember.BirthDay = reader.GetInt32("BirthDay");
-
                     familyMember.BirthMonth = reader.GetInt32("BirthMonth");
                     familyMember.BirthYear = reader.GetInt32("BirthYear");
-                    familyMember.objBirthDate = new DateTime(familyMember.BirthYear, familyMember.BirthMonth, familyMember.BirthDay);
-                    //familyMember.objBirthDate = currentDateTime;
                     familyMember.Gender = reader.GetString("Gender");
                     try
                     {
@@ -234,8 +226,8 @@ namespace FamilyTree
 
             MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = "INSERT INTO FamilyMembers (FirstName, LastName, BirthMonth, " +
-                "BirthDay, BirthYear, Gender, MaidenName, GroupID) VALUES (@FirstName, @LastName, @BirthMonth, " +
-                "@BirthDay, @BirthYear, @Gender, @MaidenName, @GroupID);";
+                "BirthDay, BirthYear, Gender, MaidenName, GroupID, AstroSign, Generation) VALUES (@FirstName, @LastName, @BirthMonth, " +
+                "@BirthDay, @BirthYear, @Gender, @MaidenName, @GroupID, @AstroSign, @Generation);";
 
             cmd.Parameters.AddWithValue("FirstName", familyMemberToInsert.FirstName);
             cmd.Parameters.AddWithValue("LastName", familyMemberToInsert.LastName);
@@ -245,6 +237,9 @@ namespace FamilyTree
             cmd.Parameters.AddWithValue("Gender", familyMemberToInsert.Gender);
             cmd.Parameters.AddWithValue("MaidenName", familyMemberToInsert.MaidenName);
             cmd.Parameters.AddWithValue("GroupID", familyMemberToInsert.GroupID);
+            cmd.Parameters.AddWithValue("AstroSign", familyMemberToInsert.AstroSign);
+            cmd.Parameters.AddWithValue("Generation", familyMemberToInsert.Generation);
+
 
             //AssignGroupID(familyMemberToInsert);
             //AssignGeneration(familyMemberToInsert);
@@ -265,13 +260,31 @@ namespace FamilyTree
             MySqlCommand cmd = conn.CreateCommand();
 
             cmd.CommandText = ("UPDATE familymembers SET FirstName = @FirstName, LastName = @LastName," +
-                " BirthMonth = @BirthMonth, BirthDay = @BirthDay, BirthYear = @BirthYear WHERE ID = @id");
+                " BirthMonth = @BirthMonth, BirthDay = @BirthDay, BirthYear = @BirthYear, AstroSign = @AstroSign, " +
+                "Generation = @Generation WHERE ID = @id;");
             cmd.Parameters.AddWithValue("FirstName", familyMemberToUpdate.FirstName);
             cmd.Parameters.AddWithValue("LastName", familyMemberToUpdate.LastName);
             cmd.Parameters.AddWithValue("id", familyMemberToUpdate.ID);
             cmd.Parameters.AddWithValue("BirthMonth", familyMemberToUpdate.BirthMonth);
             cmd.Parameters.AddWithValue("BirthDay", familyMemberToUpdate.BirthDay);
             cmd.Parameters.AddWithValue("BirthYear", familyMemberToUpdate.BirthYear);
+            cmd.Parameters.AddWithValue("AstroSign", familyMemberToUpdate.AstroSign);
+            cmd.Parameters.AddWithValue("Generation", familyMemberToUpdate.Generation);
+
+            using (conn)
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteFamilyMember(int id)
+        {
+            MySqlConnection conn = new MySqlConnection(connectionString);
+
+            MySqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = "DELETE FROM familymembers WHERE ID = @id";
+            cmd.Parameters.AddWithValue("id", id);
 
             using (conn)
             {
@@ -325,8 +338,8 @@ namespace FamilyTree
 
         public void AssignAstroSign(FamilyMember familyMember)
         {
-            int month = familyMember.objBirthDate.Month;
-            int day = familyMember.objBirthDate.Day;
+            int month = familyMember.BirthMonth;
+            int day = familyMember.BirthDay;
 
             switch (month)
             {
@@ -469,38 +482,41 @@ namespace FamilyTree
 
         public void AssignGeneration(FamilyMember familyMember)
         {
-            int year = familyMember.objBirthDate.Year;
-            int month = familyMember.objBirthDate.Month;
-            int day = familyMember.objBirthDate.Day;
+            int year = familyMember.BirthYear;
 
-            if (familyMember.objBirthDate.Year > 2014)
+            if (year > 1924)
             {
-                familyMember.Generation = "Generation Alpha";
-            }
-            if (familyMember.objBirthDate.Year > 1994)
-            {
-                familyMember.Generation = "Generation Z";
+                familyMember.Generation = "The Silent Generation";
             }
 
-            if (familyMember.objBirthDate.Year > 1980)
-            {
-                familyMember.Generation = "Millennial";
-            }
-
-            if (familyMember.objBirthDate.Year > 1964)
-            {
-                familyMember.Generation = "Generation X";
-            }
-
-            if (familyMember.objBirthDate.Year > 1945)
+            if (year > 1945)
             {
                 familyMember.Generation = "Baby Boomer";
             }
 
-            if (familyMember.objBirthDate.Year > 1924)
+            if (year > 1964)
             {
-                familyMember.Generation = "The Silent Generation";
+                familyMember.Generation = "Generation X";
             }
+
+            if (year > 1980)
+            {
+                familyMember.Generation = "Millennial";
+            }
+
+            if (year > 1994)
+            {
+                familyMember.Generation = "Generation Z";
+            }
+
+            if (year > 2014)
+            {
+                familyMember.Generation = "Generation Alpha";
+            }
+
+
+
+
         }
 
 

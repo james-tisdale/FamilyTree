@@ -48,9 +48,9 @@ namespace FamilyTree.Controllers
         public IActionResult InsertFamilyMemberToDatabase(FamilyMember familyMemberToInsert)
         {
             FamilyMemberRepository repo = new FamilyMemberRepository();
-            repo.InsertFamilyMember(familyMemberToInsert);
             repo.AssignAstroSign(familyMemberToInsert);
             repo.AssignGeneration(familyMemberToInsert);
+            repo.InsertFamilyMember(familyMemberToInsert);
 
             var groupRepo = new GroupNameRepository();
             groupRepo.AssignGroupNameToFamilyMember(familyMemberToInsert);
@@ -66,7 +66,7 @@ namespace FamilyTree.Controllers
             FamilyMemberRepository repo = new FamilyMemberRepository();
             FamilyMember familyMember = repo.GetFamilyMember(id);
 
-            repo.UpdateFamilyMember(familyMember);
+            
 
             if (familyMember == null)
             {
@@ -79,9 +79,24 @@ namespace FamilyTree.Controllers
         public IActionResult UpdateFamilyMemberToDatabase(FamilyMember familyMember)
         {
             FamilyMemberRepository repo = new FamilyMemberRepository();
+            repo.AssignAstroSign(familyMember);
+            repo.AssignGeneration(familyMember);
             repo.UpdateFamilyMember(familyMember);
+
+            repo.UpdateFamilyMember(familyMember);
+            
 
             return RedirectToAction("ViewFamilyMember", new { id = familyMember.ID });
         }
+
+        public IActionResult DeleteFamilyMember(FamilyMember familyMember)
+        {
+            FamilyMemberRepository repo = new FamilyMemberRepository();
+
+            repo.DeleteFamilyMember(familyMember.ID);
+
+            return RedirectToAction("Index");
+        }
     }
+
 }

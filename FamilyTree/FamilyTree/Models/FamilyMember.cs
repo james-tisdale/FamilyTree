@@ -22,8 +22,6 @@ namespace FamilyTree.Models
         public int BirthMonth { get; set; }
         public int BirthYear { get; set; }
         public int BirthDay { get; set; }
-        public DateTime objBirthDate { get; set; }
-        
         public List<GroupNames> GroupNameList { get; set; }
     }
 }

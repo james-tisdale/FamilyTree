@@ -1,8 +1,13 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */
-body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+
+
+a:link {
+    color: #a7cdbd;
+}
+
+a:hover {
+    color: #e0f4ff;
 }
 
 /* Wrapping element */
@@ -12,19 +17,9 @@ body {
     padding-right: 15px;
 }
 
-.title {
-    font-family: 'Franklin Gothic';
-    font-size: 128px;
-    margin-left: auto;
-    margin-right: auto;
-}
 
-.circleButtons {
-    font-family: 'Franklin Gothic';
-    font-size: 25px;
-    border-radius: 100px;
-    color: #fa9f4d;
-}
+
+
 
 /* Carousel */
 .carousel-caption p {
